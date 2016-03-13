@@ -20,6 +20,7 @@ dependencies {
 
 test {
     useTestNG() {
-        suiteXmlFiles << new File(rootDir, "src/test/resources/testng_run1.xml")
+        suiteXmlFiles << new File(rootDir, "src/test/resources/testng.xml")
+        useDefaultListeners = false
     }
 }
