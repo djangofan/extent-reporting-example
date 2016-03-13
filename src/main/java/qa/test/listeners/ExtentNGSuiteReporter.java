@@ -8,6 +8,7 @@ import org.testng.*;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Date;
 
 public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IExecutionListener, IInvokedMethodListener
@@ -41,8 +42,10 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult)
     {
         // invoked right before test method
-        testResult.setAttribute("annotatedTestName", (String)method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(Test.class).testName());
-        String testName = (String) testResult.getAttribute("testName");
+        System.err.println(">>>>>>" + Arrays.toString(testResult.getParameters()));
+        //String annotatedTestName = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(Test.class).testName();
+        testResult.setAttribute("annotatedTestName", "");
+        String testName = (String)testResult.getAttribute("annotatedTestName");
         extentTest = extentReports.startTest(testName, "Description: ");
         extentTest.log(LogStatus.INFO, "Starting test " + testName + " ...");
     }

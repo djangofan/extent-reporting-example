@@ -5,8 +5,6 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 version = '1.0-SNAPSHOT'
 
-defaultTasks 'clean', 'test'
-
 repositories {
     mavenCentral()
 }
@@ -19,6 +17,6 @@ dependencies {
 
 test {
     useTestNG() {
-        suiteXmlFiles << new File(rootDir, "src/test/resources/testng.xml")
+        suiteXmlFiles << new File(rootDir, "src/test/resources/testng_run1.xml")
     }
 }

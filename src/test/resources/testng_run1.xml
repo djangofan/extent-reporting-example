@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="testng_run1.xml" verbose="1" >
+    <listeners>
+        <listener class-name="qa.test.listeners.ExtentNGSuiteReporter" />
+    </listeners>
+    <test name="One Test"   >
+        <classes>
+            <class name="qa.test.tests.Whatever1ExtentTest" />
+        </classes>
+    </test>
+</suite>

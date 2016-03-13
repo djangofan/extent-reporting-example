@@ -1,27 +1,22 @@
 package qa.test.tests;
 
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import qa.test.ExtentTestBase;
 
 public class Whatever2ExtentTest extends ExtentTestBase
 {
-    @Test(testName="assertPass1")
-    public void assertPass1()
+    @Test(testName="assertPass21")
+    public void assertPass21()
     {
-        Assert.assertTrue(true, "True message 1.");
+        Assert.assertTrue(true, "Pass message 1.");
     }
 
-    @Test(testName="assertPass2")
-    public void assertPass2()
+    @Test(testName="assertSkip21")
+    public void assertSkip21()
     {
-        Assert.assertTrue(true, "True message 2.");
-    }
-
-    @Test(testName="assertFail1")
-    public void assertFail1()
-    {
-        Assert.assertTrue(false, "Fail message.");
+        throw new SkipException("Skip exception 1.");
     }
 
 }
