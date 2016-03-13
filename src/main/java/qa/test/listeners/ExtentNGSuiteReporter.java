@@ -67,7 +67,6 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
     {
         //Invoked each time a test succeeds.
         extentTest.log(LogStatus.PASS, "Test Passed.");
-        extentTest.log(LogStatus.INFO, "Test class is finished.");
         extentTest.setEndedTime(new Date());
     }
 
@@ -76,7 +75,6 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
     {
         //Invoked each time a test fails.
         extentTest.log(LogStatus.FAIL, "Test Failed.");
-        extentTest.log(LogStatus.INFO, "Test class is finished.");
         extentTest.setEndedTime(new Date());
     }
 
@@ -85,7 +83,6 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
     {
         //Invoked each time a test is skipped.
         extentTest.log(LogStatus.SKIP, "Test Skipped.");
-        extentTest.log(LogStatus.INFO, "Test class is finished.");
         extentTest.setEndedTime(new Date());
     }
 
@@ -94,8 +91,9 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
     {
         //Invoked each time a method fails but has been annotated with successPercentage and this failure still keeps it within the success percentage requested.
         extentTest.log(LogStatus.FAIL, "Test Failed By Test Percentage.");
-        extentTest.log(LogStatus.INFO, "Test class is finished.");
         extentTest.setEndedTime(new Date());
+        extentReports.endTest(extentTest);  // ???
+        extentReports.flush();
     }
 
     @Override
@@ -115,7 +113,7 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
     public void onExecutionFinish()
     {
         //Invoked once all the suites have been run.
-        extentReports.flush();
+
         extentReports.close();
     }
 
