@@ -5,10 +5,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import com.relevantcodes.extentreports.NetworkMode;
 import org.testng.*;
-import org.testng.annotations.Test;
-
 import java.io.File;
-import java.util.Arrays;
 import java.util.Date;
 
 public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IExecutionListener, IInvokedMethodListener
@@ -42,11 +39,19 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult)
     {
         // invoked right before test method
-        System.err.println(">>>>>>" + Arrays.toString(testResult.getParameters()));
-        //String annotatedTestName = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(Test.class).testName();
-        testResult.setAttribute("annotatedTestName", "");
+    }
+
+
+    @Override
+    public void afterInvocation(IInvokedMethod method, ITestResult testResult)
+    {
+        // invoked right after test method
+        ITestNGMethod iTestNGMethod = method.getTestMethod();
+        ITestClass iTestClass = iTestNGMethod.getTestClass();
+        String annotatedTestName = iTestClass.getTestName();
+        testResult.setAttribute("annotatedTestName", annotatedTestName);
         String testName = (String)testResult.getAttribute("annotatedTestName");
-        extentTest = extentReports.startTest(testName, "Description: ");
+        extentTest = extentReports.startTest(testName, "Description: -------");
         extentTest.log(LogStatus.INFO, "Starting test " + testName + " ...");
     }
 
@@ -94,12 +99,6 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
     }
 
     @Override
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult)
-    {
-        // invoked right after test method
-    }
-
-    @Override
     public void onFinish(ITestContext context)
     {
          //Invoked after all the tests have run and all their Configuration methods have been called.
@@ -119,8 +118,5 @@ public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IEx
         extentReports.flush();
         extentReports.close();
     }
-
-
-
 
 }

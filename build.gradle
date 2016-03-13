@@ -13,6 +13,9 @@ dependencies {
     compile 'org.testng:testng:6.9.10'
     compile 'com.relevantcodes:extentreports:2.40.2'
     compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'org.slf4j:slf4j-api:1.7.18'
+    compile 'ch.qos.logback:logback-core:1.1.6'
+    compile 'ch.qos.logback:logback-classic:1.1.6'
 }
 
 test {
