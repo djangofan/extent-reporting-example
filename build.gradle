@@ -1,0 +1,24 @@
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+version = '1.0-SNAPSHOT'
+
+defaultTasks 'clean', 'test'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.testng:testng:6.9.10'
+    compile 'com.relevantcodes:extentreports:2.40.2'
+    compile 'org.apache.commons:commons-lang3:3.4'
+}
+
+test {
+    useTestNG() {
+        suiteXmlFiles << new File(rootDir, "src/test/resources/testng.xml")
+    }
+}
