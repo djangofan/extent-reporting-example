@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="testng_by_classes.xml" verbose="1" parallel="methods" thread-count="3" >
+    <listeners>
+        <listener class-name="qa.test.listeners.ExtentNGSuiteReporter" />
+    </listeners>
+    <test name="Parallel Classes Suite">
+        <classes>
+            <class name="qa.test.tests.classes.ParallelClassesTest1" />
+            <class name="qa.test.tests.classes.ParallelClassesTest2" />
+            <class name="qa.test.tests.classes.ParallelClassesTest3" />
+        </classes>
+    </test>
+</suite>

@@ -15,3 +15,7 @@ In `build.gradle`, set the location of the suite file:
 ### Execution of tests
 
 Run build with gradle, using these goals: `clean test`
+
+## Notes
+
+https://github.com/virenv/ExtentReportUsage/tree/master/ParallelUsage/src/Factory

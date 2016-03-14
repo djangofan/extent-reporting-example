@@ -8,11 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITest;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
+import org.testng.annotations.*;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
@@ -20,37 +16,62 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public abstract class ExtentTestBase implements ITest
+/**
+ * Test base for TestNG tests.
+ */
+public abstract class TestNGParallelClassesTestBase implements ITest
 {
-    private String testName;
+    private String annotatedTestName;
+    private String annotatedDescription;
+    private String testMethodName;
     private ExtentReports extentReport;
-    private ExtentTest extentTest;
-
     private final String reportLocation = "build" + File.separator + "extent-report" + File.separator + "index.html";
-    private final Logger logger = LoggerFactory.getLogger(this.getClass().getCanonicalName());
+    private long threadId;
+
+    public ExtentTest extentTest;
+    public final Logger logger = LoggerFactory.getLogger(this.getClass().getCanonicalName());
 
     @BeforeClass
-    public void setupClass()
+    public void setupBeforeClass()
     {
         createReportInstance();
     }
 
     @BeforeMethod
-    public void setupBeforeTestMethod(Method method, ITestResult iTestResult)
+    public void setupBeforeMethod(Method method)
     {
-        setTestName(method.getName());
-        String description = method.getAnnotation(Test.class).description();
+        threadId = Thread.currentThread().getId();
+        testMethodName = method.getName();
+        annotatedTestName = method.getAnnotation(Test.class).testName();
+        annotatedDescription = method.getAnnotation(Test.class).description();
+        setTestName("[t" + threadId + ":" + testMethodName + "] " + annotatedTestName);
+        setTestDescription(annotatedDescription);
+        startTestReport();
+        setTestDescriptionOnReport(annotatedDescription);
+        extentTest.log(LogStatus.UNKNOWN, "Initialized test class <i>" + this.getClass().getCanonicalName() + "</i>");
+        extentTest.log(LogStatus.INFO, "Starting test with name <b>" + getTestName() + "</b>");
+    }
+
+    public void startTestReport()
+    {
         extentTest = extentReport.startTest(getTestName());
-        extentTest.setDescription(description);
         extentTest.setStartedTime(new Date());
-        extentTest.log(LogStatus.INFO, "Starting test " + getTestName() + " ...");
+    }
+
+    public void setTestDescriptionOnReport(String desc)
+    {
+        extentTest.setDescription(desc);
+    }
+
+    public void setTestDescription(String desc)
+    {
+        this.annotatedDescription = desc;
     }
 
     @AfterMethod
-    public void teardownAfterTestmethod(ITestResult iTestResult)
+    public void teardownAfterMethod(ITestResult iTestResult)
     {
         int testngStatus = iTestResult.getStatus();
-        logger.info("TestNG test status after test: " + testngStatus);
         if ( testngStatus == ITestResult.SUCCESS ) {
             extentTest.log(LogStatus.PASS, "Test Passed.");
         } else if ( testngStatus == ITestResult.FAILURE ) {
@@ -60,40 +81,48 @@ public abstract class ExtentTestBase implements ITest
         } else {
             extentTest.log(LogStatus.ERROR, "Test problem.");
         }
-        extentTest.setEndedTime(new Date());
         flushTestToReport(extentReport, extentTest);
     }
 
-    public void teardownClass()
+    @AfterClass
+    public void teardownAfterClass()
     {
         extentReport.close(); // report html wont show up until this is called
+        logger.info("Closed test thread " + threadId);
     }
 
     public String getTestName()
     {
-        return this.testName;
+        return this.annotatedTestName;
+    }
+
+    public String getTestDescription()
+    {
+        return this.annotatedDescription;
     }
 
     public void setTestName(String name)
     {
-        this.testName = name;
+        this.annotatedTestName = name;
     }
 
     private ExtentReports createReportInstance() {
         extentReport = new ExtentReports(reportLocation, false, NetworkMode.OFFLINE);
-        extentReport.addSystemInfo("systemOs", "Windows");
+        extentReport.addSystemInfo("Report Creation Date", getDateTime());
         return extentReport;
     }
 
     private void flushTestToReport(ExtentReports extent, ExtentTest test)
     {
+        test.setEndedTime(new Date());
         extent.endTest(test);
         extent.flush();
+
     }
 
     private String getDateTime() {
         Date date = Calendar.getInstance().getTime();
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String today = formatter.format(date);
         return today;
     }

@@ -1,0 +1,18 @@
+package qa.test.tests.classes;
+
+import com.relevantcodes.extentreports.LogStatus;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import qa.test.TestNGParallelClassesTestBase;
+
+public class ParallelClassesTest3 extends TestNGParallelClassesTestBase
+{
+    @Test(testName="ParallelClassesTest3.assertFail", description = "Tests a failing assertion.")
+    public void assertFail()
+    {
+        extentTest.log(LogStatus.INFO, "First line of test.");
+        Assert.assertTrue(false, "Failed assertion.");
+        extentTest.log(LogStatus.INFO, "Last line of test.");
+    }
+
+}
