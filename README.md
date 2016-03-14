@@ -8,7 +8,7 @@ In `build.gradle`, set the location of the suite file:
 
     test {
         useTestNG() {
-            suiteXmlFiles << new File(rootDir, "src/test/resources/testng_run1.xml")
+            suiteXmlFiles << new File(rootDir, "src/test/resources/testng_by_classes.xml")
         }
     }
 
