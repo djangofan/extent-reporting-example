@@ -18,4 +18,4 @@ Run build with gradle, using these goals: `clean test`
 
 ## Notes
 
-https://github.com/virenv/ExtentReportUsage/tree/master/ParallelUsage/src/Factory
+Someone elses implemenation: https://github.com/virenv/ExtentReportUsage/tree/master/ParallelUsage/src/Factory
