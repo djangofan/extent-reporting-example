@@ -4,9 +4,8 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
-import qa.test.TestNGParallelClassesTestBase;
 
-public class ParallelMethodsTest2 extends TestNGParallelClassesTestBase
+public class ParallelMethodsTest2 extends TestNGParallelMethodsTestBase
 {
     @Test(testName="ParallelClassesTest2.assertPass21", description = "Tests a passing assertion.")
     public void assertPass21()

@@ -1,7 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="testng_by_classes.xml" verbose="1" parallel="methods" thread-count="3" >
+<suite name="testng_by_classes.xml" verbose="1" parallel="classes" thread-count="10" >
     <listeners>
-        <listener class-name="qa.test.listeners.ExtentNGSuiteReporter" />
+        <listener class-name="qa.test.listeners.TestNGSuiteListener" />
+        <!-- <listener class-name="qa.test.listeners.DebugTestNGListenerOrder" /> -->
     </listeners>
     <test name="Parallel Classes Suite">
         <classes>

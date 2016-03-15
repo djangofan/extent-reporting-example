@@ -8,7 +8,7 @@ import java.lang.annotation.Annotation;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Method;
 
-public class TestEnforcer
+public class TestClassFormatEnforcer
 {
     public static void thereCanBeOnlyOneTestMethod(Class<?> klass, Class<?> annotation, ExtentTest extentTest)
     {

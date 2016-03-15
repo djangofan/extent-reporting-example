@@ -1,10 +1,8 @@
 package qa.test.tests.classes;
 
 import com.relevantcodes.extentreports.LogStatus;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
-import qa.test.TestNGParallelClassesTestBase;
 
 public class ParallelClassesTest2 extends TestNGParallelClassesTestBase
 {

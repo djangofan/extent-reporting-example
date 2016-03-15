@@ -3,9 +3,8 @@ package qa.test.tests.methods;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import qa.test.TestNGParallelClassesTestBase;
 
-public class ParallelMethodsTest1 extends TestNGParallelClassesTestBase
+public class ParallelMethodsTest1 extends TestNGParallelMethodsTestBase
 {
     @Test(testName="ParallelClassesTest1.assertPass11", description = "Tests a passing assertion.")
     public void assertPass11()

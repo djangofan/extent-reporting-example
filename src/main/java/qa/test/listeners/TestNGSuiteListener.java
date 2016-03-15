@@ -8,7 +8,7 @@ import org.testng.*;
 import java.io.File;
 import java.util.Date;
 
-public class ExtentNGSuiteReporter implements ITestListener, ISuiteListener, IExecutionListener, IInvokedMethodListener
+public class TestNGSuiteListener implements ITestListener, ISuiteListener, IExecutionListener, IInvokedMethodListener
 {
     @Override
     public void onExecutionStart()

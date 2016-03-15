@@ -1,61 +1,52 @@
-package qa.test;
+package qa.test.tests.methods;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-import com.relevantcodes.extentreports.NetworkMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITest;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import java.io.File;
+import qa.test.util.ExtentReportsManager;
+import qa.test.util.ExtentTestManager;
+
 import java.lang.reflect.Method;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Test base for TestNG tests.
  */
-public abstract class TestNGParallelClassesTestBase implements ITest
+public abstract class TestNGParallelMethodsTestBase implements ITest
 {
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass().getCanonicalName());
+
     private String annotatedTestName;
     private String annotatedDescription;
     private String testMethodName;
-    private ExtentReports extentReport;
-    private final String reportLocation = "build" + File.separator + "extent-report" + File.separator + "index.html";
-    private long threadId;
 
-    public ExtentTest extentTest;
-    public final Logger logger = LoggerFactory.getLogger(this.getClass().getCanonicalName());
+    private ExtentReports extentReport;
+    protected ExtentTest extentTest;
 
     @BeforeClass
     public void setupBeforeClass()
     {
-        createReportInstance();
+        extentReport = ExtentReportsManager.getReporter();
     }
 
     @BeforeMethod
     public void setupBeforeMethod(Method method)
     {
-        threadId = Thread.currentThread().getId();
         testMethodName = method.getName();
         annotatedTestName = method.getAnnotation(Test.class).testName();
         annotatedDescription = method.getAnnotation(Test.class).description();
-        setTestName("[t" + threadId + ":" + testMethodName + "] " + annotatedTestName);
+        setTestName("[t" + ExtentTestManager.getThreadId() + ":" + testMethodName + "] " + annotatedTestName);
         setTestDescription(annotatedDescription);
-        startTestReport();
-        setTestDescriptionOnReport(annotatedDescription);
+        extentTest = ExtentTestManager.startTest(getTestName(), getTestDescription());
+        extentTest.setStartedTime(new Date());
+        setTestDescriptionOnReport(getTestDescription());
         extentTest.log(LogStatus.UNKNOWN, "Initialized test class <i>" + this.getClass().getCanonicalName() + "</i>");
         extentTest.log(LogStatus.INFO, "Starting test with name <b>" + getTestName() + "</b>");
-    }
-
-    public void startTestReport()
-    {
-        extentTest = extentReport.startTest(getTestName());
-        extentTest.setStartedTime(new Date());
     }
 
     public void setTestDescriptionOnReport(String desc)
@@ -88,7 +79,7 @@ public abstract class TestNGParallelClassesTestBase implements ITest
     public void teardownAfterClass()
     {
         extentReport.close(); // report html wont show up until this is called
-        logger.info("Closed test thread " + threadId);
+        logger.info("Closed test thread " + ExtentTestManager.getThreadId());
     }
 
     public String getTestName()
@@ -106,25 +97,12 @@ public abstract class TestNGParallelClassesTestBase implements ITest
         this.annotatedTestName = name;
     }
 
-    private ExtentReports createReportInstance() {
-        extentReport = new ExtentReports(reportLocation, false, NetworkMode.OFFLINE);
-        extentReport.addSystemInfo("Report Creation Date", getDateTime());
-        return extentReport;
-    }
-
     private void flushTestToReport(ExtentReports extent, ExtentTest test)
     {
         test.setEndedTime(new Date());
         extent.endTest(test);
         extent.flush();
 
-    }
-
-    private String getDateTime() {
-        Date date = Calendar.getInstance().getTime();
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String today = formatter.format(date);
-        return today;
     }
 
 }
