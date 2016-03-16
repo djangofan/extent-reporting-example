@@ -2,17 +2,12 @@ package qa.test.util;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ExtentTestManager
 {
-    static Map extentTestMap = new HashMap();
+    static Map extentTestMap = new ConcurrentHashMap();
     private static ExtentReports extentReports = ExtentReportsManager.getReporter();
 
     public static synchronized ExtentTest getTest()
@@ -22,14 +17,14 @@ public class ExtentTestManager
 
     public static synchronized void endTest()
     {
-        extentReports.endTest( getExtentTestByThreadId(getThreadId()) );
-        extentTestMap.remove(getThreadId());
+        extentReports.endTest(getExtentTestByThreadId(getThreadId()));
         extentReports.flush();
+        extentTestMap.remove(getThreadId());
     }
 
     public static synchronized ExtentTest startTest(String testName)
     {
-        return startTest(testName, "");
+        return startTest(testName, "Empty test description.");
     }
 
     public static synchronized ExtentTest startTest(String testName, String desc)
@@ -41,19 +36,17 @@ public class ExtentTestManager
 
     public static int getThreadId()
     {
-        return (int)Thread.currentThread().getId();
+        return (int) Thread.currentThread().getId();
     }
 
     public static ExtentTest getExtentTestByThreadId(int id)
     {
-        return (ExtentTest)extentTestMap.get(id);
+        return (ExtentTest) extentTestMap.get(id);
     }
 
     public static String getCurrentMethodName()
     {
         return Thread.currentThread().getStackTrace()[1].getMethodName();
     }
-
-
 
 }

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class ParallelMethodsTest2 extends TestNGParallelMethodsTestBase
 {
-    @Test(testName="ParallelClassesTest2.assertPass21", description = "Tests a passing assertion.", timeOut = 10)
+    @Test(testName="Parallel Methods Test 2 assertPass21", description = "Tests a passing assertion.", timeOut = 10)
     public void assertPass21()
     {
         extentTest.log(LogStatus.INFO, "First line of test.");
@@ -15,7 +15,7 @@ public class ParallelMethodsTest2 extends TestNGParallelMethodsTestBase
         extentTest.log(LogStatus.INFO, "Last line of test.");
     }
 
-    @Test(testName="ParallelClassesTest2.assertSkip21", description = "Tests a skip condition.", timeOut = 10)
+    @Test(testName="Parallel Methods Test 2 assertSkip21", description = "Tests a skip condition.", timeOut = 10)
     public void assertSkip21()
     {
         extentTest.log(LogStatus.INFO, "First line of test.");

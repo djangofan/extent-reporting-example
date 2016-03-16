@@ -12,10 +12,15 @@ import java.util.Date;
 public class ExtentReportsManager
 {
     private static ExtentReports extentReports;
-    private static String reportLocation = "build" + File.separator + "reports" + File.separator + "extent" + File.separator + "index.html";
+    public static String DEFAULT_REPORT_LOCATION = "build" + File.separator + "reports" + File.separator + "extent" + File.separator + "index.html";
+    private static String reportLocation;
 
     public synchronized static ExtentReports getReporter()
     {
+        if (reportLocation == null)
+        {
+            reportLocation = DEFAULT_REPORT_LOCATION;
+        }
         if (extentReports == null)
         {
             extentReports = new ExtentReports(reportLocation, Boolean.TRUE, NetworkMode.OFFLINE);
@@ -44,10 +49,15 @@ public class ExtentReportsManager
      * For use in a BeforeSuite call to alter report location on a per-suite basis.
      * @param suiteName
      */
-    public static void setReportLocation(String suiteName)
+    public static void alterReportLocation(String suiteName)
     {
         reportLocation = "build" + File.separator + "reports" + File.separator + "extent"
                 + File.separator + suiteName + File.separator + "index.html";
+    }
+
+    public static void nullifyReportLocation()
+    {
+        reportLocation = null;
     }
 
 }

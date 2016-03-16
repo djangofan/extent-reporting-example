@@ -24,7 +24,7 @@ public class TestNGParallelTestBase implements ITest
     {
         String suiteResultsFolder = iTestContext.getCurrentXmlTest().getParameter("suiteFolder");
         if ( suiteResultsFolder != null ) {
-            ExtentReportsManager.setReportLocation(suiteResultsFolder);
+            ExtentReportsManager.alterReportLocation(suiteResultsFolder);
         }
     }
 
@@ -32,6 +32,7 @@ public class TestNGParallelTestBase implements ITest
     public void teardownSuite()
     {
         ExtentReportsManager.closeReporter();
+        ExtentReportsManager.nullifyReportLocation();
     }
 
     public String getTestName()

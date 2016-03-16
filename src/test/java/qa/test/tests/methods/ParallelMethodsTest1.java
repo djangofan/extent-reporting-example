@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class ParallelMethodsTest1 extends TestNGParallelMethodsTestBase
 {
-    @Test(testName="ParallelClassesTest1.assertPass11", description = "Tests a passing assertion.", timeOut = 10)
+    @Test(testName="Parallel Methods Test 1 assertPass11", description = "Tests a passing assertion.", timeOut = 10)
     public void assertPass11()
     {
         extentTest.log(LogStatus.INFO, "First line of test.");

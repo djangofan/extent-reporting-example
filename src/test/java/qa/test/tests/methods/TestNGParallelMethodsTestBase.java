@@ -15,11 +15,10 @@ public abstract class TestNGParallelMethodsTestBase extends TestNGParallelTestBa
     @BeforeMethod
     public void setupBeforeMethod(Method method)
     {
-        setTestName(method.getAnnotation(Test.class).testName());
-        setTestDescription(method.getAnnotation(Test.class).description());
         setTestName(generateTestNameByMethod(method));
+        setTestDescription(method.getAnnotation(Test.class).description());
         extentTest = ExtentTestManager.startTest(getTestName(), getTestDescription());
-        extentTest.log(LogStatus.UNKNOWN, "Initialized test class <i>" + this.getClass().getCanonicalName() + "</i>");
+        extentTest.log(LogStatus.UNKNOWN, "Initialized test class <i>" + canonicalClassName + "</i>");
         extentTest.log(LogStatus.INFO, "Starting test with name <b>" + getTestName() + "</b>");
     }
 
