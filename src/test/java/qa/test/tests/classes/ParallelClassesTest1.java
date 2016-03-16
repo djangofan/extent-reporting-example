@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class ParallelClassesTest1 extends TestNGParallelClassesTestBase
 {
-    @Test(testName="ParallelClassesTest1.assertPass", description = "Tests a passing assertion.")
+    @Test(testName="Parallel Classes Test assertPass", description = "Tests a passing assertion.")
     public void assertPass()
     {
         extentTest.log(LogStatus.INFO, "First line of test.");

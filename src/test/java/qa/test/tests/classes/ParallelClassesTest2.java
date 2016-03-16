@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class ParallelClassesTest2 extends TestNGParallelClassesTestBase
 {
-    @Test(testName="ParallelClassesTest2.assertSkip", description = "Tests a skip condition.")
+    @Test(testName="Parallel Classes Test assertSkip", description = "Tests a skip condition.")
     public void assertSkip()
     {
         extentTest.log(LogStatus.INFO, "First line of test.");

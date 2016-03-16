@@ -12,7 +12,7 @@ import java.util.Date;
 public class ExtentReportsManager
 {
     private static ExtentReports extentReports;
-    private static final String reportLocation = "build" + File.separator + "extentReports-report" + File.separator + "index.html";
+    private static final String reportLocation = "build" + File.separator + "reports" + File.separator + "extent" + File.separator + "index.html";
 
     public synchronized static ExtentReports getReporter()
     {
@@ -31,6 +31,13 @@ public class ExtentReportsManager
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String today = formatter.format(date);
         return today;
+    }
+
+    public synchronized static void closeReporter()
+    {
+        if (extentReports != null) {
+            extentReports.close();
+        }
     }
 
 }
