@@ -20,7 +20,7 @@ Run build with gradle, using these goals: `clean test`
 
 ## Notes
 
-Loosely based of this example: https://github.com/virenv/ExtentReportUsage/tree/master/ParallelUsage/src/Factory
+Loosely based of this example: https://github.com/virenv/ExtentReportUsage/tree/master/ParallelUsage/src/Factory and also on examples in the 2.0 Java documentation: http://extentreports.relevantcodes.com/java/version2/docs.html#parallel-runs
 
 Supports both testing by parallel methods and also by parallel classes.
 
