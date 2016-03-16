@@ -1,16 +1,13 @@
 package qa.test.tests;
 
-import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.ITest;
-import org.testng.ITestResult;
+import org.testng.*;
 import org.testng.annotations.*;
 import qa.test.util.ExtentReportsManager;
 import qa.test.util.ExtentTestManager;
-
 import java.lang.reflect.Method;
 
 public class TestNGParallelTestBase implements ITest
@@ -22,8 +19,17 @@ public class TestNGParallelTestBase implements ITest
     private String annotatedTestName;
     private String annotatedDescription;
 
+    @BeforeSuite
+    public void setupSuite(ITestContext iTestContext)
+    {
+        String suiteResultsFolder = iTestContext.getCurrentXmlTest().getParameter("suiteFolder");
+        if ( suiteResultsFolder != null ) {
+            ExtentReportsManager.setReportLocation(suiteResultsFolder);
+        }
+    }
+
     @AfterSuite
-    public void teardownAfterClass()
+    public void teardownSuite()
     {
         ExtentReportsManager.closeReporter();
     }

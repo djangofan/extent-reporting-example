@@ -12,7 +12,7 @@ import java.util.Date;
 public class ExtentReportsManager
 {
     private static ExtentReports extentReports;
-    private static final String reportLocation = "build" + File.separator + "reports" + File.separator + "extent" + File.separator + "index.html";
+    private static String reportLocation = "build" + File.separator + "reports" + File.separator + "extent" + File.separator + "index.html";
 
     public synchronized static ExtentReports getReporter()
     {
@@ -38,6 +38,16 @@ public class ExtentReportsManager
         if (extentReports != null) {
             extentReports.close();
         }
+    }
+
+    /**
+     * For use in a BeforeSuite call to alter report location on a per-suite basis.
+     * @param suiteName
+     */
+    public static void setReportLocation(String suiteName)
+    {
+        reportLocation = "build" + File.separator + "reports" + File.separator + "extent"
+                + File.separator + suiteName + File.separator + "index.html";
     }
 
 }
