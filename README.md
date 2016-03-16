@@ -26,6 +26,6 @@ Run build with gradle, using these goals: `clean test`
 
 - Loosely based of this example: https://github.com/virenv/ExtentReportUsage/tree/master/ParallelUsage/src/Factory and also on examples in the 2.0 Java documentation: http://extentreports.relevantcodes.com/java/version2/docs.html#parallel-runs
 
-- Uses static classes right now but I want to convert it to IOC with Spring injection.
+- Uses static classes right now, with singleton pattern, but I want to convert it to IOC with Spring injection.
 
 - I also want to embed some example Selenium tests using Selenide framework.
